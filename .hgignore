@@ -1,0 +1,10 @@
+^RemoteControlledBluetooth/app/build/
+\.(svn|tmp|db|mp3|sql|gz|zip|bk|orig|log|txt|swp|kdev4|buildpath)$
+app\/build
+.iml
+build
+\.idea
+\.gradle
+local.properties
+.DS_Store
+app/app.iml
