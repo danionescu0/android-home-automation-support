@@ -3,7 +3,7 @@
     package="homeautomation.dan.ionescu.homeautomation">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
         android:allowBackup="true"
@@ -24,11 +24,11 @@
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
-        <receiver android:name=".GpsTrackerAlarmReceiver">
-        </receiver>
-        <service android:name=".LocationService">
-        </service>
+        <receiver android:name=".GpsTrackerAlarmReceiver"></receiver>
 
+        <service android:name=".LocationService"></service>
+
+        <activity android:name=".ServerSettingsActivity"></activity>
     </application>
 
 </manifest>
