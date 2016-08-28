@@ -1,11 +1,13 @@
 package homeautomation.dan.ionescu.homeautomation;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+/**
+ * @Todo refactor repetitive setters and getters into a service
+ */
 public class ServerSettingsActivity extends BaseActivity {
 
     @Override
@@ -19,10 +21,11 @@ public class ServerSettingsActivity extends BaseActivity {
         EditText serverURL = (EditText) findViewById(R.id.server_url);
         EditText apiPassword = (EditText) findViewById(R.id.api_password);
         EditText apiUsername = (EditText) findViewById(R.id.api_username);
+        EditText deviceName = (EditText) findViewById(R.id.device_name);
         userPrefferences.setServerURL(serverURL.getText().toString());
         userPrefferences.setApiPasswword(apiPassword.getText().toString());
         userPrefferences.setApiUsername(apiUsername.getText().toString());
-        Log.d("server_Settings", serverURL.getText().toString());
+        userPrefferences.setDeviceName(deviceName.getText().toString());
 
         Toast.makeText(getApplicationContext(), "Settings saved", Toast.LENGTH_SHORT).show();
     }
@@ -31,8 +34,10 @@ public class ServerSettingsActivity extends BaseActivity {
         EditText serverURL = (EditText) findViewById(R.id.server_url);
         EditText apiPassword = (EditText) findViewById(R.id.api_password);
         EditText apiUsername = (EditText) findViewById(R.id.api_username);
+        EditText deviceName = (EditText) findViewById(R.id.device_name);
         serverURL.setText(userPrefferences.getServerURL());
         apiPassword.setText(userPrefferences.getPassword());
         apiUsername.setText(userPrefferences.getUsername());
+        deviceName.setText(userPrefferences.getDeviceName());
     }
 }

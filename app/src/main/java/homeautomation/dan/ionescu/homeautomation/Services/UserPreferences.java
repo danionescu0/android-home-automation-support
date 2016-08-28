@@ -9,6 +9,7 @@ public class UserPreferences {
     private String SERVER_URL = "server_url";
     private String API_USERNAME = "api_username";
     private String API_PASSWORD = "api_password";
+    private String DEVICE_NAME = "device_name";
 
     private Context context;
 
@@ -28,6 +29,10 @@ public class UserPreferences {
         return get(API_PASSWORD);
     }
 
+    public String getDeviceName() {
+        return get(DEVICE_NAME);
+    }
+
     public void setServerURL(String name) {
         set(SERVER_URL, name);
     }
@@ -38,6 +43,10 @@ public class UserPreferences {
 
     public void setApiPasswword(String passwword) {
         set(API_PASSWORD, passwword);
+    }
+
+    public void setDeviceName(String name) {
+        set(DEVICE_NAME, name);
     }
 
     public boolean hasServerURL() {
