@@ -24,11 +24,12 @@
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
-        <receiver android:name=".GpsTrackerAlarmReceiver"></receiver>
+        <receiver android:name=".GpsTrackerAlarmReceiver" />
 
-        <service android:name=".LocationService"></service>
+        <service android:name=".Services.LocationService" />
 
-        <activity android:name=".ServerSettingsActivity"></activity>
+        <activity android:name=".ServerSettingsActivity" />
+        <activity android:name=".BaseActivity"></activity>
     </application>
 
 </manifest>

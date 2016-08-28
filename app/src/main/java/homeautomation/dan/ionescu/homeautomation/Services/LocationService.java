@@ -1,4 +1,4 @@
-package homeautomation.dan.ionescu.homeautomation;
+package homeautomation.dan.ionescu.homeautomation.Services;
 
 import android.app.Service;
 import android.content.Intent;

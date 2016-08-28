@@ -19,27 +19,28 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/editText"
-            android:text="Server URL:" />
+            android:id="@+id/server_url"
+            android:hint="Server URL:" />
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/editText2"
-            android:text="Server username:" />
+            android:id="@+id/api_username"
+            android:hint="Api username:" />
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPassword"
             android:ems="10"
-            android:id="@+id/editText3"
-            android:text="Server password:" />
+            android:hint="Api password:"
+            android:id="@+id/api_password" />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Update"
-            android:id="@+id/button" />
+            android:onClick="updateSettings"
+            android:id="@+id/update_settings" />
     </LinearLayout>
 </RelativeLayout>
