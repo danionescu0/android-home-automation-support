@@ -16,8 +16,8 @@ public class AlarmRepeater {
 
     public void repeat(Class<?> targetClass, int seconds) {
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        Intent gpsTrackerIntent = new Intent(context, targetClass);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, gpsTrackerIntent, 0);
+        Intent repeatClass = new Intent(context, targetClass);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, repeatClass, 0);
 
         alarmManager.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,
                 SystemClock.elapsedRealtime(),

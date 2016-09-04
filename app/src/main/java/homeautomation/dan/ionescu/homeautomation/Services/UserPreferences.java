@@ -9,7 +9,7 @@ public class UserPreferences {
     private String SERVER_URL = "server_url";
     private String API_USERNAME = "api_username";
     private String API_PASSWORD = "api_password";
-    private String DEVICE_NAME = "device_name";
+    private String JWT_TOKEN = "jwt_token";
 
     private Context context;
 
@@ -29,8 +29,8 @@ public class UserPreferences {
         return get(API_PASSWORD);
     }
 
-    public String getDeviceName() {
-        return get(DEVICE_NAME);
+    public String getJwtToken() {
+        return get(JWT_TOKEN);
     }
 
     public void setServerURL(String name) {
@@ -45,8 +45,12 @@ public class UserPreferences {
         set(API_PASSWORD, passwword);
     }
 
-    public void setDeviceName(String name) {
-        set(DEVICE_NAME, name);
+    public void setJwtToken(String token) {
+        set(JWT_TOKEN, token);
+    }
+
+    public boolean hasJwtToken() {
+        return getJwtToken().length() > 0;
     }
 
     public boolean hasServerURL() {

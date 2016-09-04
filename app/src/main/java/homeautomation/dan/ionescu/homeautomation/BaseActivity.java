@@ -24,6 +24,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     {
         MenuInflater menuInflater = getMenuInflater();
         menuInflater.inflate(R.menu.main, menu);
+
         return true;
     }
 
@@ -35,6 +36,9 @@ public abstract class BaseActivity extends AppCompatActivity {
                 break;
             case R.id.controll_interface:
                 showActivity(MainActivity.class);
+                break;
+            case R.id.about:
+                showActivity(AboutActivity.class);
                 break;
         }
 

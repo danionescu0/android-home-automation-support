@@ -29,7 +29,8 @@
         <service android:name=".Services.LocationService" />
 
         <activity android:name=".ServerSettingsActivity" />
-        <activity android:name=".BaseActivity"></activity>
+        <activity android:name=".BaseActivity" />
+        <activity android:name=".AboutActivity"></activity>
     </application>
 
 </manifest>

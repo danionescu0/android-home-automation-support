@@ -3,6 +3,7 @@ package homeautomation.dan.ionescu.homeautomation.Services;
 import android.app.Service;
 import android.content.Intent;
 import android.location.Location;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.util.Log;
@@ -13,8 +14,6 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
-
-import java.util.concurrent.Callable;
 
 public class LocationService extends Service implements
         GoogleApiClient.ConnectionCallbacks,
@@ -35,7 +34,6 @@ public class LocationService extends Service implements
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        Log.d(TAG, "Starting location service ");
         if (!currentlyProcessingLocation) {
             currentlyProcessingLocation = true;
             startTracking();
@@ -72,21 +70,22 @@ public class LocationService extends Service implements
     }
 
     @Override
-    public void onLocationChanged(Location location) {
+    public void onLocationChanged(final Location location) {
         if (location == null) {
             return;
         }
         Log.d(TAG, "position: " + location.getLatitude() + ", " + location.getLongitude() + " accuracy: " + location.getAccuracy());
         if (location.getAccuracy() < 500.0f) {
             stopLocationUpdates();
-            new ApiHandler(userPreferences).sendLocation(location,
-                    new Callable() {
-                        @Override
-                        public Object call() throws Exception {
-                            stopSelf();
-                            return null;
-                        }
-                    });
+            new AsyncTask<Void, Void, Void>() {
+                @Override
+                protected Void doInBackground(Void... params) {
+                    new ApiHandler(userPreferences).sendLocation(location);
+                    stopSelf();
+
+                    return null;
+                }
+            }.execute();
         }
     }
 
