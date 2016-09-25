@@ -14,6 +14,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
+import javax.inject.Inject;
+
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.IncorrectClaimException;
@@ -28,6 +30,7 @@ public class ApiHandler {
 
     protected OkHttpClient client = new OkHttpClient();
 
+    @Inject
     public ApiHandler(UserPreferences userPreferences) {
         this.userPreferences = userPreferences;
     }
@@ -79,7 +82,7 @@ public class ApiHandler {
      * @Todo refactor to get secret from android manifest
      */
     private String getBase64ApiTokenSecret() {
-        String key = "secret";
+        String key = "replacewithyourkey";
 
         return Base64.encodeToString(key.getBytes(), Base64.DEFAULT);
     }
@@ -91,7 +94,7 @@ public class ApiHandler {
         }
         Response response = client.newCall(request).execute();
         if (!response.isSuccessful()) {
-            throw new IOException("Unexpected code " + response.toString());
+            throw new IOException("Unexpected code: " + response.toString());
         }
 
         return response.body().string();

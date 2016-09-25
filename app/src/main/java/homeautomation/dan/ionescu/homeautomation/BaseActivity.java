@@ -7,21 +7,28 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
+import javax.inject.Inject;
+
+import homeautomation.dan.ionescu.homeautomation.Services.AlarmRepeater;
 import homeautomation.dan.ionescu.homeautomation.Services.UserPreferences;
 
 public abstract class BaseActivity extends AppCompatActivity {
-    protected UserPreferences userPrefferences;
+
+    HomeAutomationApplication app;
+
+    @Inject UserPreferences userPrefferences;
+    @Inject AlarmRepeater alarmRepeater;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        userPrefferences = new UserPreferences(getApplicationContext());
+        app = (HomeAutomationApplication) getApplication();
+        app.getAppComponent().inject(this);
         setContentView(R.layout.activity_base_menu);
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu)
-    {
+    public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater = getMenuInflater();
         menuInflater.inflate(R.menu.main, menu);
 

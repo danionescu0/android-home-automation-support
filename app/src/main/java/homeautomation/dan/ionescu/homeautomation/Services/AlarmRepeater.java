@@ -7,9 +7,12 @@ import android.content.Intent;
 import android.os.SystemClock;
 import android.util.Log;
 
+import javax.inject.Inject;
+
 public class AlarmRepeater {
     private Context context;
 
+    @Inject
     public AlarmRepeater(Context context) {
         this.context = context;
     }

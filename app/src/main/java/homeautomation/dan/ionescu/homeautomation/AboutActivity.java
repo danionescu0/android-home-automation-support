@@ -1,10 +1,9 @@
 package homeautomation.dan.ionescu.homeautomation;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.webkit.WebView;
 
-public class AboutActivity extends AppCompatActivity {
+public class AboutActivity extends BaseActivity {
     private static String URL = "https://bitbucket.org/danionescu/home-automation";
 
     @Override

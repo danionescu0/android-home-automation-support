@@ -3,6 +3,8 @@ package homeautomation.dan.ionescu.homeautomation.Services;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import javax.inject.Inject;
+
 public class UserPreferences {
     static private String FILE_NAME = "home_automation";
 
@@ -13,6 +15,7 @@ public class UserPreferences {
 
     private Context context;
 
+    @Inject
     public UserPreferences(Context context) {
         this.context = context;
     }

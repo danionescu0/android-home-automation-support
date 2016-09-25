@@ -5,14 +5,15 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
-import homeautomation.dan.ionescu.homeautomation.Services.AlarmRepeater;
-
 public class MainActivity extends BaseActivity {
+
+
     boolean alarmManagerStarted = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
         WebView webView = (WebView) findViewById(R.id.webview);
         WebSettings webSettings = webView.getSettings();
@@ -34,6 +35,6 @@ public class MainActivity extends BaseActivity {
         }
         alarmManagerStarted = true;
 
-        new AlarmRepeater(getBaseContext()).repeat(GpsTrackerAlarmReceiver.class, 60);
+        alarmRepeater.repeat(GpsTrackerAlarmReceiver.class, 60);
     }
 }
