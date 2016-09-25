@@ -15,7 +15,6 @@
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -31,7 +30,11 @@
 
         <activity android:name=".ServerSettingsActivity" />
         <activity android:name=".BaseActivity" />
-        <activity android:name=".AboutActivity"></activity>
+        <activity android:name=".AboutActivity" />
+
+        <meta-data
+            android:name="homeautomation.dan.ionescu.homeautomation.apiTokenSecret"
+            android:value="@string/api_token_secret" />
     </application>
 
 </manifest>

@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">HomeAutomation</string>
+    <string name="api_token_secret">replacewithsecret</string>
 </resources>

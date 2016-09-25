@@ -26,13 +26,15 @@ import io.jsonwebtoken.SignatureException;
 
 public class ApiHandler {
     private UserPreferences userPreferences;
+    private String apiTokenSecret;
     private static final String TAG = "LocationService";
 
     protected OkHttpClient client = new OkHttpClient();
 
     @Inject
-    public ApiHandler(UserPreferences userPreferences) {
+    public ApiHandler(UserPreferences userPreferences, String apiTokenSecret) {
         this.userPreferences = userPreferences;
+        this.apiTokenSecret = apiTokenSecret;
     }
 
     public void sendLocation(Location location) {
@@ -78,13 +80,8 @@ public class ApiHandler {
         return "/api/token-auth";
     }
 
-    /**
-     * @Todo refactor to get secret from android manifest
-     */
     private String getBase64ApiTokenSecret() {
-        String key = "replacewithyourkey";
-
-        return Base64.encodeToString(key.getBytes(), Base64.DEFAULT);
+        return Base64.encodeToString(apiTokenSecret.getBytes(), Base64.DEFAULT);
     }
 
     private String execute(Request request) throws IOException {
@@ -94,7 +91,7 @@ public class ApiHandler {
         }
         Response response = client.newCall(request).execute();
         if (!response.isSuccessful()) {
-            throw new IOException("Unexpected code: " + response.toString());
+            throw new IOException(String.format("Unexpected code: %s", response.toString()));
         }
 
         return response.body().string();
@@ -122,7 +119,7 @@ public class ApiHandler {
 
                 return requestBuilder.url(urlWithParams).get();
             default:
-                throw new RuntimeException("Invalid method name " + method);
+                throw new RuntimeException(String.format("Invalid method name %s", method));
         }
     }
 
@@ -132,9 +129,9 @@ public class ApiHandler {
             userPreferences.setJwtToken(token);
         }
 
-        Log.d(TAG, "adding jwt token:" + userPreferences.getJwtToken());
+        Log.d(TAG, String.format("adding jwt token: %s", userPreferences.getJwtToken()));
         request = request.newBuilder()
-                .addHeader("Authorization", "Bearer " + userPreferences.getJwtToken())
+                .addHeader("Authorization", String.format("Bearer %s", userPreferences.getJwtToken()))
                 .build();
 
         return request;

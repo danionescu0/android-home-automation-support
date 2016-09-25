@@ -80,7 +80,9 @@ public class LocationService extends Service implements
             new AsyncTask<Void, Void, Void>() {
                 @Override
                 protected Void doInBackground(Void... params) {
-                    new ApiHandler(userPreferences).sendLocation(location);
+                    String apiTokenSecret = MetaDataContainer.get(getBaseContext(),
+                            "homeautomation.dan.ionescu.homeautomation.apiTokenSecret");
+                    new ApiHandler(userPreferences, apiTokenSecret).sendLocation(location);
                     stopSelf();
 
                     return null;

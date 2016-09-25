@@ -11,7 +11,7 @@ import dagger.Module;
 import dagger.Provides;
 import homeautomation.dan.ionescu.homeautomation.Services.AlarmRepeater;
 import homeautomation.dan.ionescu.homeautomation.Services.ApiHandler;
-import homeautomation.dan.ionescu.homeautomation.Services.LocationService;
+import homeautomation.dan.ionescu.homeautomation.Services.MetaDataContainer;
 import homeautomation.dan.ionescu.homeautomation.Services.UserPreferences;
 
 @Module
@@ -31,8 +31,11 @@ public class AppModule {
 
     @Provides
     @Singleton
-    ApiHandler providesApiHandler(UserPreferences userPreferences) {
-        return new ApiHandler(userPreferences);
+    ApiHandler providesApiHandler(UserPreferences userPreferences, Context context) {
+        String apiTokenSecret = MetaDataContainer.get(context,
+                "homeautomation.dan.ionescu.homeautomation.apiTokenSecret");
+
+        return new ApiHandler(userPreferences, apiTokenSecret);
     }
 
     @Provides
