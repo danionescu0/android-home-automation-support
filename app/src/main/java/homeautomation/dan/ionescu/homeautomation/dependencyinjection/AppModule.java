@@ -40,7 +40,7 @@ public class AppModule {
 
     @Provides
     @Singleton
-    UserPreferences providesUserPreferences(Context context ) {
+    UserPreferences providesUserPreferences(Context context) {
         return new UserPreferences(context);
     }
 }

@@ -15,12 +15,16 @@ import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 
+/**
+ * @Todo show in interface when location req failed
+ */
 public class LocationService extends Service implements
         GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener,
         LocationListener {
 
     private static final String TAG = "LocationService";
+
     private boolean currentlyProcessingLocation = false;
     private LocationRequest locationRequest;
     private GoogleApiClient googleApiClient;

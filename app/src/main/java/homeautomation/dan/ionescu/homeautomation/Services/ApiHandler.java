@@ -48,6 +48,16 @@ public class ApiHandler {
         }
     }
 
+    public void sendVoiceCommand(String command) {
+        HashMap<String, String> requestParams = new HashMap<>();
+        requestParams.put("command", command);
+        try {
+            doRequest(getVoiceCommandUrl(), "GET", requestParams);
+        } catch (IOException e) {
+            Log.d(TAG, e.getMessage());
+        }
+    }
+
     private String getTokenFromServer() {
         HashMap<String, String> requestParams = new HashMap<>();
         requestParams.put("username", userPreferences.getUsername());
@@ -74,6 +84,10 @@ public class ApiHandler {
 
     private String getLocationUrl() {
         return "/api/record-location";
+    }
+
+    private String getVoiceCommandUrl() {
+        return "/api/voice-command";
     }
 
     private String getTokenAuthUrl() {
@@ -106,12 +120,10 @@ public class ApiHandler {
     private Request.Builder getRequestBuilder(String path, String method, HashMap<String, String> params) {
         final Request.Builder requestBuilder = new Request.Builder();
         String absoluteUrl = userPreferences.getServerURL() + path;
-        Log.d(TAG, absoluteUrl);
 
         switch (method) {
             case "GET":
                 HttpUrl.Builder urlBuilder = HttpUrl.parse(absoluteUrl).newBuilder();
-
                 for (Map.Entry<String, String> param : params.entrySet()) {
                     urlBuilder.addQueryParameter(param.getKey(), param.getValue());
                 }

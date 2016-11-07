@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import javax.inject.Inject;
 
 import homeautomation.dan.ionescu.homeautomation.Services.AlarmRepeater;
+import homeautomation.dan.ionescu.homeautomation.Services.ApiHandler;
 import homeautomation.dan.ionescu.homeautomation.Services.UserPreferences;
 
 public abstract class BaseActivity extends AppCompatActivity {
@@ -18,6 +19,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     @Inject UserPreferences userPrefferences;
     @Inject AlarmRepeater alarmRepeater;
+    @Inject ApiHandler apiHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
