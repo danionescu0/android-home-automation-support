@@ -75,7 +75,7 @@ public class LocationService extends Service implements
 
     @Override
     public void onLocationChanged(final Location location) {
-        if (location == null) {
+        if (location == null || !userPreferences.hasServerURL()) {
             return;
         }
         Log.d(TAG, "position: " + location.getLatitude() + ", " + location.getLongitude() + " accuracy: " + location.getAccuracy());

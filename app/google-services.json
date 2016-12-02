@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "506823600974",
+    "project_id": "homeautomation-140711"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:506823600974:android:a78558e8b71e8514",
+        "android_client_info": {
+          "package_name": "homeautomation.dan.ionescu.homeautomation"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "506823600974-dgicevdk7roqapbrdg1u4jhhjabfkc4p.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "homeautomation.dan.ionescu.homeautomation",
+            "certificate_hash": "45B7ED1C36D92D5167E9EF312F6987F30C489F8E"
+          }
+        },
+        {
+          "client_id": "506823600974-sc7t099ch604jfftivosg041cbt7kdta.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCRaCoctRM5LbxDsS8gAJsbKbvVLHS-6vI"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

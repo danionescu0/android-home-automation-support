@@ -9,11 +9,9 @@ import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.Toast;
 
 import java.util.List;
-
-import homeautomation.dan.ionescu.homeautomation.Services.ApiHandler;
-import homeautomation.dan.ionescu.homeautomation.Services.MetaDataContainer;
 
 public class MainActivity extends BaseActivity {
 
@@ -59,7 +57,8 @@ public class MainActivity extends BaseActivity {
         if (requestCode == SPEECH_REQUEST_CODE && resultCode == RESULT_OK) {
             List<String> results = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
             final String spokenText = results.get(0);
-            Log.d("cici", spokenText);
+            String message = String.format("Sending voice command: %s", spokenText);
+            Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
             new AsyncTask<Void, Void, Void>() {
                 @Override
                 protected Void doInBackground(Void... params) {
