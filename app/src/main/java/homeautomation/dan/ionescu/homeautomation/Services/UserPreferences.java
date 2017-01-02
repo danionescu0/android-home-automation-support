@@ -2,8 +2,17 @@ package homeautomation.dan.ionescu.homeautomation.Services;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 import javax.inject.Inject;
+
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.IncorrectClaimException;
+import io.jsonwebtoken.Jws;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.MissingClaimException;
+import io.jsonwebtoken.SignatureException;
 
 public class UserPreferences {
     static private String FILE_NAME = "home_automation";
@@ -52,8 +61,17 @@ public class UserPreferences {
         set(JWT_TOKEN, token);
     }
 
-    public boolean hasJwtToken() {
-        return getJwtToken().length() > 0;
+    public boolean hasValidJwtToken(String tokenSecret) {
+        if (getJwtToken().length() == 0) {
+            return false;
+        }
+        try {
+            Jwts.parser().setSigningKey(tokenSecret).parseClaimsJws(getJwtToken());
+        } catch (ExpiredJwtException e) {
+            return false;
+        }
+
+        return true;
     }
 
     public boolean hasServerURL() {

@@ -136,7 +136,7 @@ public class ApiHandler {
     }
 
     private Request applyJwtToken(Request request) throws IOException {
-        if (!userPreferences.hasJwtToken()) {
+        if (!userPreferences.hasValidJwtToken(getBase64ApiTokenSecret())) {
             String token = getTokenFromServer();
             userPreferences.setJwtToken(token);
         }

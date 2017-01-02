@@ -26,6 +26,5 @@ public class AlarmRepeater {
                 SystemClock.elapsedRealtime(),
                 seconds * 1000,
                 pendingIntent);
-        Log.d("cici", "repeater started");
     }
 }
