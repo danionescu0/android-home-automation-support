@@ -4,15 +4,9 @@ import android.location.Location;
 import android.util.Base64;
 import android.util.Log;
 
-import com.squareup.okhttp.HttpUrl;
-import com.squareup.okhttp.OkHttpClient;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.Response;
-
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 
@@ -23,6 +17,12 @@ import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.MissingClaimException;
 import io.jsonwebtoken.SignatureException;
+import okhttp3.FormBody;
+import okhttp3.HttpUrl;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 public class ApiHandler {
     private UserPreferences userPreferences;
@@ -42,7 +42,7 @@ public class ApiHandler {
         requestParams.put("latitude", Double.toString(location.getLatitude()));
         requestParams.put("longitude", Double.toString(location.getLongitude()));
         try {
-            doRequest(getLocationUrl(), "GET", requestParams);
+            doRequest(getLocationUrl(), "POST", requestParams);
         } catch (IOException e) {
             Log.d(TAG, e.getMessage());
         }
@@ -64,7 +64,7 @@ public class ApiHandler {
         requestParams.put("password", userPreferences.getPassword());
         String token = "";
         try {
-            token = doRequest(getTokenAuthUrl(), "GET", requestParams);
+            token = doRequest(getTokenAuthUrl(), "POST", requestParams);
         } catch (IOException e) {
             Log.d(TAG, e.getMessage());
         }
@@ -83,7 +83,7 @@ public class ApiHandler {
     }
 
     private String getLocationUrl() {
-        return "/api/record-location";
+        return "/api/location";
     }
 
     private String getVoiceCommandUrl() {
@@ -91,7 +91,7 @@ public class ApiHandler {
     }
 
     private String getTokenAuthUrl() {
-        return "/api/token-auth";
+        return "/api/user/token";
     }
 
     private String getBase64ApiTokenSecret() {
@@ -100,7 +100,7 @@ public class ApiHandler {
 
     private String execute(Request request) throws IOException {
         configureHttpClient();
-        if (!request.httpUrl().url().toString().contains(getTokenAuthUrl())) {
+        if (!request.url().toString().contains(getTokenAuthUrl())) {
             request = applyJwtToken(request);
         }
         Response response = client.newCall(request).execute();
@@ -120,16 +120,26 @@ public class ApiHandler {
     private Request.Builder getRequestBuilder(String path, String method, HashMap<String, String> params) {
         final Request.Builder requestBuilder = new Request.Builder();
         String absoluteUrl = userPreferences.getServerURL() + path;
+        HttpUrl.Builder urlBuilder = HttpUrl.parse(absoluteUrl).newBuilder();
 
         switch (method) {
             case "GET":
-                HttpUrl.Builder urlBuilder = HttpUrl.parse(absoluteUrl).newBuilder();
                 for (Map.Entry<String, String> param : params.entrySet()) {
                     urlBuilder.addQueryParameter(param.getKey(), param.getValue());
                 }
                 String urlWithParams = urlBuilder.build().toString();
 
                 return requestBuilder.url(urlWithParams).get();
+            case "POST":
+                FormBody.Builder requestBodhBuilder = new FormBody.Builder();
+                for (Map.Entry<String, String> param : params.entrySet()) {
+                    requestBodhBuilder.add(param.getKey(), param.getValue());
+                }
+                RequestBody requestBody = requestBodhBuilder.build();
+
+                return requestBuilder
+                        .url(urlBuilder.build().toString())
+                        .post(requestBody);
             default:
                 throw new RuntimeException(String.format("Invalid method name %s", method));
         }
@@ -139,9 +149,9 @@ public class ApiHandler {
         if (!userPreferences.hasValidJwtToken(getBase64ApiTokenSecret())) {
             String token = getTokenFromServer();
             userPreferences.setJwtToken(token);
+            Log.d(TAG, String.format("Adding new jwt token: %s", userPreferences.getJwtToken()));
         }
 
-        Log.d(TAG, String.format("adding jwt token: %s", userPreferences.getJwtToken()));
         request = request.newBuilder()
                 .addHeader("Authorization", String.format("Bearer %s", userPreferences.getJwtToken()))
                 .build();
@@ -150,7 +160,7 @@ public class ApiHandler {
     }
 
     private void configureHttpClient() {
-        client.setConnectTimeout(6, TimeUnit.SECONDS);
-        client.setReadTimeout(6, TimeUnit.SECONDS);
+//        client.setConnectTimeout(6, TimeUnit.SECONDS);
+//        client.setReadTimeout(6, TimeUnit.SECONDS);
     }
 }

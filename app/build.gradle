@@ -4,7 +4,7 @@ apply plugin: 'com.google.gms.google-services'
 
 android {
     compileSdkVersion 23
-    buildToolsVersion "23.0.3"
+    buildToolsVersion '25.0.0'
 
     packagingOptions {
         exclude 'META-INF/DEPENDENCIES'
@@ -39,9 +39,7 @@ dependencies {
     compile 'com.google.android.gms:play-services:9.0.0'
     compile 'com.loopj.android:android-async-http:1.4.9'
     compile group: 'io.jsonwebtoken', name: 'jjwt', version: '0.6.0'
-    compile ('com.squareup.okhttp:okhttp:2.5.0') {
-        transitive=true
-    }
+    compile group: 'com.squareup.okhttp3', name: 'okhttp', version: '3.9.0'
     compile 'com.android.support:design:23.1.1'
     apt 'com.google.dagger:dagger-compiler:2.7'
     compile 'com.google.dagger:dagger:2.7'

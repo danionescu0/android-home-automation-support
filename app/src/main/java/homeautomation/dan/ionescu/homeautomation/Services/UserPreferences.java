@@ -67,7 +67,7 @@ public class UserPreferences {
         }
         try {
             Jwts.parser().setSigningKey(tokenSecret).parseClaimsJws(getJwtToken());
-        } catch (ExpiredJwtException e) {
+        } catch (ExpiredJwtException | SignatureException e) {
             return false;
         }
 

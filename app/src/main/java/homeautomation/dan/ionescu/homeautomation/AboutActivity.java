@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.webkit.WebView;
 
 public class AboutActivity extends BaseActivity {
-    private static String URL = "https://bitbucket.org/danionescu/home-automation";
+    private static String URL = "https://github.com/danionescu0/home-automation";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
