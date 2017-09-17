@@ -2,16 +2,11 @@ package homeautomation.dan.ionescu.homeautomation.Services;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.util.Log;
 
 import javax.inject.Inject;
 
-import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
-import io.jsonwebtoken.IncorrectClaimException;
-import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.MissingClaimException;
 import io.jsonwebtoken.SignatureException;
 
 public class UserPreferences {

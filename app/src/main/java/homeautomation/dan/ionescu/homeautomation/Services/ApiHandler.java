@@ -41,33 +41,22 @@ public class ApiHandler {
         HashMap<String, String> requestParams = new HashMap<>();
         requestParams.put("latitude", Double.toString(location.getLatitude()));
         requestParams.put("longitude", Double.toString(location.getLongitude()));
-        try {
-            doRequest(getLocationUrl(), "POST", requestParams);
-        } catch (IOException e) {
-            Log.d(TAG, e.getMessage());
-        }
+        requestParams.put("username", userPreferences.getUsername());
+        doRequest(getLocationUrl(), "POST", requestParams);
     }
 
     public void sendVoiceCommand(String command) {
         HashMap<String, String> requestParams = new HashMap<>();
         requestParams.put("command", command);
-        try {
-            doRequest(getVoiceCommandUrl(), "GET", requestParams);
-        } catch (IOException e) {
-            Log.d(TAG, e.getMessage());
-        }
+        doRequest(getVoiceCommandUrl(), "POST", requestParams);
     }
 
     private String getTokenFromServer() {
         HashMap<String, String> requestParams = new HashMap<>();
         requestParams.put("username", userPreferences.getUsername());
         requestParams.put("password", userPreferences.getPassword());
-        String token = "";
-        try {
-            token = doRequest(getTokenAuthUrl(), "POST", requestParams);
-        } catch (IOException e) {
-            Log.d(TAG, e.getMessage());
-        }
+        String token = doRequest(getTokenAuthUrl(), "POST", requestParams);
+
         Log.d(TAG, "response(" + new String(token)+")");
         try {
             Jws<Claims> claims = Jwts.parser()
@@ -111,10 +100,16 @@ public class ApiHandler {
         return response.body().string();
     }
 
-    private String doRequest(String path, String method, HashMap<String, String> params) throws IOException{
+    private String doRequest(String path, String method, HashMap<String, String> params) {
         final Request request = getRequestBuilder(path, method, params).build();
 
-        return execute(request);
+        try {
+            return execute(request);
+        } catch (IOException e) {
+            Log.d(TAG, e.getMessage());
+        }
+
+        return "";
     }
 
     private Request.Builder getRequestBuilder(String path, String method, HashMap<String, String> params) {
