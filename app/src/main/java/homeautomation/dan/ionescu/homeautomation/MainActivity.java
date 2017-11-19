@@ -26,6 +26,7 @@ public class MainActivity extends BaseActivity {
         WebView webView = (WebView) findViewById(R.id.webview);
         WebSettings webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
+        webSettings.setDomStorageEnabled(true);
         webView.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
@@ -33,7 +34,7 @@ public class MainActivity extends BaseActivity {
                 return false;
             }
         });
-        webView.loadUrl(userPrefferences.getServerURL());
+        webView.loadUrl(userPrefferences.getWebappURL());
         startAlarmManager();
     }
 

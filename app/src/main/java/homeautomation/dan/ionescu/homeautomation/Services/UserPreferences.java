@@ -8,6 +8,7 @@ import javax.inject.Inject;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureException;
+import io.jsonwebtoken.lang.Strings;
 
 public class UserPreferences {
     static private String FILE_NAME = "home_automation";
@@ -16,6 +17,7 @@ public class UserPreferences {
     private String API_USERNAME = "api_username";
     private String API_PASSWORD = "api_password";
     private String JWT_TOKEN = "jwt_token";
+    private String WEBAPP_URL = "%s/index.html";
 
     private Context context;
 
@@ -26,6 +28,10 @@ public class UserPreferences {
 
     public String getServerURL() {
         return get(SERVER_URL);
+    }
+
+    public String getWebappURL() {
+        return String.format(this.WEBAPP_URL, get(SERVER_URL));
     }
 
     public String getUsername() {
